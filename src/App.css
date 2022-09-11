@@ -39,17 +39,17 @@
 
 .container{
   display: flex;
-  margin: 5rem;
-  padding: 5rem;
+  margin: 3rem 0;
+  padding: 2rem;
   border: 2px ridge grey;
   background-color: rgba(0, 153, 255, 0.5);
 
 }
 .search--bar{
-  width: 20rem;
+  width: 12rem;
   height: 2rem;
   border-radius: 50px;
-  margin-right:10px;
+  margin:0 10px 10px 0;
 
 }
 .btn{
