@@ -1,7 +1,8 @@
-//import axios from 'axios';
-//import { useEffect } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
 import { useState } from 'react';
-import { url } from './Read';
+import ReadProfiles, { url } from './Read';
+
 
 export default function Create() {
     
@@ -11,60 +12,83 @@ export default function Create() {
     const [grade, setGrade] = useState('');
     const [isLoading, setIsLoading]=useState(false); 
     
+    const [profile, setProfile]= useState('');
+
+
     //     function addProfiles(){
     //     axios.get(url).then((response) => {
     //     setProfile(response.data);
     //     });
     // }
 
-    const handleAdd = async()=> {
-        setIsLoading(true);
-        const profile={studentID, firstname, lastname, grade};
+    function HandleAdd(){
 
-        const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'},
-                body: JSON.stringify(profile)    
-        });    
-    
-            console.log('New Student Profile added! Loading removed');
+        setIsLoading(true);
+        const student ={studentID, firstname, lastname, grade};
+   
+        // useEffect( ()=>{
+        // axios.post(url, student)
+        //     .then((response) => {
+        //         console.log('New Student Profile added! Loading removed');
+        //         console.log(response);
+        //     }, (error) => {
+        //         console.log(error);
+        //     });    
+        // }, []);
+
+        axios.post(url, student)
+            .then((response) => {
+                console.log('New Student Profile added! Loading removed');
+                console.log(response);
+            }, (error) => {
+                console.log(error);
+            });
+
+            
+            
             setIsLoading(false); 
-            const result = await response.json();
-            console.log('result is: ', JSON.stringify(result, null, 4)); 
-            return result;         
+            ReadProfiles();
     };
+
+
 
     return (
            
         <>
         <div className='modal--div'>
-            <h3>New Student</h3>
+            <h4 className='modal--title'>Manage Student Profile</h4>
                         
             <div className='input--container'>
 
                 
                 <div className='input box1'>
+                    <input id='id' placeholder='Student ID number' type='number' onChange={(e)=>setStudentID(e.target.value)}/>
+                </div>
+                <div className='input box2'>
                     <input placeholder='First Name' type='text' onChange={(e)=>setFirstname(e.target.value)}/>
                 </div>
                 
-                <div className='input box2'>
-                    <input placeholder='Last Name' type='text' onChange={(e)=>setLastname(e.target.value)}/>
-                </div>
                 <div className='input box3'>
-                    <input id='id' placeholder='Student ID number' type='number' onChange={(e)=>setStudentID(e.target.value)}/>
+                    <input placeholder='Last Name' type='text' onChange={(e)=>setLastname(e.target.value)}/>
                 </div>
                 <div className='input box4'>
                     <input placeholder='Grade out of 100' type='number' onChange={(e)=>setGrade(e.target.value)}/>
                 </div>
                 
                 <div className='input box5'>
-                    <button className="btn--form" type='button' onClick={ handleAdd }>Add </button>         
+                    <button className="btn--form" type='button' onClick={ HandleAdd }>Add </button>         
                 </div>
-        
                 <div className='input box6'>
+                    <button className="btn--form" onClick=''>Edit</button>
+                </div>
+                <div className='input box7'>
+                    <button className="btn--form" onClick=''>Delete</button>
+                </div>
+                <div className='input box8'>
                     {isLoading && (<h4>Loading...</h4>)}
                 </div> 
+
+        
             </div>   
         </div>        
         </>

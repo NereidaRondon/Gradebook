@@ -1,11 +1,20 @@
 import './App.css';
-import Search from './Components/Search';
-//import Students from './Components/Students';
 import ReadProfiles from './Components/Read'; 
-//import CreateProfile from './Components/Create';
+import {useState} from 'react';
 
+
+const Test = require('./Test.png');
 export default function App() {
+  const [view, setView]=useState(false);
 
+  function ShowAllProfiles(){
+    setView(true);
+    console.log('show student list');
+  }
+  function HideAllProfiles(){
+    setView(false);
+    console.log('hide student list');
+  }
   // const profile = ListData1.map(student =>{
   //     return(
   //       <Students
@@ -21,13 +30,18 @@ export default function App() {
   return (
       
       <>
-        <h1 className="page--title">Gradebook💯✔️</h1>
-            <Search />
+        <div className='title--div'>
+          <img src={Test} className="title--img" alt='Graded test paper with an A'/>
+          <h1 className="page--title">Gradebook✔️</h1>
+        </div>
+           
           <section className="page">
-
-            
-            <ReadProfiles />
-
+            <div className='btn-box-1'>
+              { !view && (<button className='main--btn' onClick={ ShowAllProfiles }>View</button>) }
+                  
+              {view && (<button className='main--btn' onClick={ HideAllProfiles }>Hide</button>)}
+            </div>
+                {view && (<ReadProfiles />)}
           </section>
 
       </>

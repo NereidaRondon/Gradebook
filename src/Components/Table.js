@@ -2,8 +2,6 @@ import { url } from './Read';
 import axios from 'axios';
 import {useState, useEffect} from 'react';
 
-const Edit = require('../images/Edit.png');
-const Delete = require('../images/Delete.png');
 
 export default function Table(props){
     let percent = props.data.grade;
@@ -55,14 +53,12 @@ export default function Table(props){
     return(
         
         <tr>
-            <td><img className='profile--pic' src={props.data.image} alt='student profile pictuire' width='50px' height='50px'></img></td>
+            <td className="avatar"><img className='profile--pic' src={props.data.image} alt='student profile pictuire' width='50px' height='50px'></img></td>
             <td>{props.data.id}</td>
             <td>{props.data.firstname}<span>&nbsp;</span>{props.data.lastname}</td>
             <td>{props.data.studentID}</td>
             <td>{props.data.grade}</td>
             <td>{Grade(percent)}</td>
-            <td><button className='img--btn'><img onClick={updatePost(props.data.id)} className='icon--style' src={Edit}/></button></td>
-            <td><button className='img--btn'><img onClick={deletePost(props.data.id)} className='icon--style' src={Delete}/></button></td>
         </tr>
     );
 } 
