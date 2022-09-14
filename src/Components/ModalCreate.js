@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useRef } from 'react';
 import { useState } from 'react';
-import ReadProfiles, { url } from './Read';
+import { url } from './ReadProfiles';
 
 
 export default function Create() {
@@ -11,30 +11,14 @@ export default function Create() {
     const [lastname, setLastname] = useState('');
     const [grade, setGrade] = useState('');
     const [isLoading, setIsLoading]=useState(false); 
-    
-    const [profile, setProfile]= useState('');
-
-
-    //     function addProfiles(){
-    //     axios.get(url).then((response) => {
-    //     setProfile(response.data);
-    //     });
-    // }
+    const clear = useRef(null);
+    const clearFirst = useRef(null);
+    const clearLast = useRef(null);
+    const clearGrade = useRef(null);
 
     function HandleAdd(){
-
         setIsLoading(true);
         const student ={studentID, firstname, lastname, grade};
-   
-        // useEffect( ()=>{
-        // axios.post(url, student)
-        //     .then((response) => {
-        //         console.log('New Student Profile added! Loading removed');
-        //         console.log(response);
-        //     }, (error) => {
-        //         console.log(error);
-        //     });    
-        // }, []);
 
         axios.post(url, student)
             .then((response) => {
@@ -43,14 +27,14 @@ export default function Create() {
             }, (error) => {
                 console.log(error);
             });
-
             
             
+            clear.current.value = '';
+            clearFirst.current.value = '';
+            clearLast.current.value = '';
+            clearGrade.current.value = '';
             setIsLoading(false); 
-            ReadProfiles();
     };
-
-
 
     return (
            
@@ -62,28 +46,28 @@ export default function Create() {
 
                 
                 <div className='input box1'>
-                    <input id='id' placeholder='Student ID number' type='number' onChange={(e)=>setStudentID(e.target.value)}/>
+                    <input id='id' ref={clear} placeholder='Student ID number' type='number' onChange={(e)=>setStudentID(e.target.value)}/>
                 </div>
                 <div className='input box2'>
-                    <input placeholder='First Name' type='text' onChange={(e)=>setFirstname(e.target.value)}/>
+                    <input ref={clearFirst} placeholder='First Name' type='text' onChange={(e)=>setFirstname(e.target.value)}/>
                 </div>
                 
                 <div className='input box3'>
-                    <input placeholder='Last Name' type='text' onChange={(e)=>setLastname(e.target.value)}/>
+                    <input ref={clearLast} placeholder='Last Name' type='text' onChange={(e)=>setLastname(e.target.value)}/>
                 </div>
                 <div className='input box4'>
-                    <input placeholder='Grade out of 100' type='number' onChange={(e)=>setGrade(e.target.value)}/>
+                    <input ref={clearGrade} placeholder='Grade out of 100' type='number' onChange={(e)=>setGrade(e.target.value)}/>
                 </div>
                 
                 <div className='input box5'>
                     <button className="btn--form" type='button' onClick={ HandleAdd }>Add </button>         
                 </div>
-                <div className='input box6'>
+                {/* <div className='input box6'>
                     <button className="btn--form" onClick=''>Edit</button>
                 </div>
                 <div className='input box7'>
                     <button className="btn--form" onClick=''>Delete</button>
-                </div>
+                </div> */}
                 <div className='input box8'>
                     {isLoading && (<h4>Loading...</h4>)}
                 </div> 

@@ -1,64 +1,101 @@
-import { url } from './Read';
-import axios from 'axios';
-import {useState, useEffect} from 'react';
+//TABLE header component
+//Profiles render
+//MODAL State and button
 
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+import Create from './ModalCreate.js';
+import ReadProfiles from './ReadProfiles.js';
+import {url} from './ReadProfiles'
 
 export default function Table(props){
-    let percent = props.data.grade;
-    var letter;
-    const Grade=(percent)=>{
-        if ( percent===""){
-            letter = 'NG';
-        } else if( percent < 60 && percent >= 1 ){
-            letter = 'F';
-        } else if( percent < 70 ){
-            letter = 'D';
-        } else if (percent < 80){
-            letter = 'C'; 
-        } else if (percent < 90){
-            letter = 'B';
-        } else if (percent > 89){
-            letter = 'A';
-        } else{
-            letter = 'NG';
-        };
-        return letter;
-    }
-
-    function updatePost(id) {
-        console.log('delete item');
-        axios
-        .put(`${url}/`+id)
-        .then(() => {
-            
-            console.log(id);
-            console.log(`${url}/`+id);
-            console.log("Post updated!");
-            //setPost(null)
-        });
-    }
-    function deletePost(id) {
-        console.log('delete item');
-        axios
-        .delete(`${url}/`+id)
-        .then(() => {
-            console.log("Post deleted!");
-            //setPost(null)
-        });
-    }
-
     
+    const [add, setAdd]=useState(false);
+    const [profile, setProfile]= useState('');
+   
 
+    useEffect( () => {
+        console.log('Page has rendered!');
+        axios.get(url).then((response) => {
+            setProfile(response.data);
+        });
+        console.log(profile);
+    },[]);
+
+    if (!profile) return null;
+    
+    function ChangeAddState(){
+        setAdd(current => !current);
+        setInterval(1500);
+        console.log('modal action');
+    }
+    
+    function ProfileTable(){  
+        const students = profile.map(data => {
+            
+            return(
+                <ReadProfiles 
+                    key={data.id}
+                    data={data}        
+                />
+            )
+
+        })
+                
+        
+        return(
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th className="avatar"></th>
+                            <th>Key</th>
+                            <th>Student Name</th>
+                            <th>Student ID#</th>
+                            <th>Percent</th>
+                            <th>Grade</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {students}
+                    </tbody>
+                </table>
+            </div>
+        );
+
+    } 
 
     return(
         
-        <tr>
-            <td className="avatar"><img className='profile--pic' src={props.data.image} alt='student profile pictuire' width='50px' height='50px'></img></td>
-            <td>{props.data.id}</td>
-            <td>{props.data.firstname}<span>&nbsp;</span>{props.data.lastname}</td>
-            <td>{props.data.studentID}</td>
-            <td>{props.data.grade}</td>
-            <td>{Grade(percent)}</td>
-        </tr>
+        <>
+            <div className='nav--div'>
+      
+                <div className='nav--1'>
+                </div>
+        
+                <div className='nav--2'>
+                </div>
+        
+                <div className='nav--3'>
+                </div>    
+    
+                <div className='nav--4'>
+                    {!add && (<button className='main--btn' type='button' onClick={ChangeAddState}>Manage</button>)}
+                    {add && (<button className='btn--form main--btn' type='button' onClick={ChangeAddState}>Done</button>)}
+                </div>
+            </div>
+
+            {add && (<div className="my--modal"><Create /></div>)}
+
+            <h3>Students:</h3>              
+
+            <div>
+                <ProfileTable />
+            </div>
+        </>
     );
-} 
+
+
+}
