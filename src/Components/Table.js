@@ -2,32 +2,39 @@
 //Profiles render
 //MODAL State and button
 
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import axios from 'axios';
 import Create from './ModalCreate.js';
 import ReadProfiles from './ReadProfiles.js';
 import {url} from './ReadProfiles'
+//import Create from './ModalCreate';
 
-export default function Table(props){
+export default function Table(){
     
     const [add, setAdd]=useState(false);
     const [profile, setProfile]= useState('');
+ 
    
-
-    useEffect( () => {
         console.log('Page has rendered!');
         axios.get(url).then((response) => {
             setProfile(response.data);
         });
         console.log(profile);
-    },[]);
+    
 
     if (!profile) return null;
     
     function ChangeAddState(){
         setAdd(current => !current);
-        setInterval(1500);
+       
         console.log('modal action');
+
+        const passState = () => {
+            
+            setAdd(current => !current);
+        };
+
+
     }
     
     function ProfileTable(){  
@@ -70,6 +77,8 @@ export default function Table(props){
     return(
         
         <>
+            {add && (<div className="my--modal"><Create /></div>)}
+            
             <div className='nav--div'>
       
                 <div className='nav--1'>
@@ -87,7 +96,7 @@ export default function Table(props){
                 </div>
             </div>
 
-            {add && (<div className="my--modal"><Create /></div>)}
+           
 
             <h3>Students:</h3>              
 

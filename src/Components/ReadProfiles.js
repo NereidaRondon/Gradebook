@@ -25,20 +25,6 @@ export default function ReadProfiles(props){
         return letter;
     }
 
-
-    // const [profile, setProfile]= useState('');
-   
-    // useEffect( () => {
-        
-    //     axios.get(url).then((response) => {
-    //         setProfile(response.data);
-    //     });
-    //     console.log(profile);
-    // }, [profile]);
-
-    // if (!profile) return null;
-
-
     function deletePost(id) {
         console.log('delete item');
         
@@ -53,6 +39,30 @@ export default function ReadProfiles(props){
         console.log(`Profile updated!`);
     }
     
+    // const element = document.querySelector('#');
+        
+    // axios.put(`${url}/${id}`)
+    // .then(response => element.innerHTML = response.data.updatedAt )
+    // .catch(error => {
+    //     element.parentElement.innerHTML = `Error: ${error.message}`;
+    //     console.error('There was an error!', error);
+    // });
+
+
+    //         axios.put('https://jsonplaceholder.typicode.com/posts/1', {
+    //         method: 'PUT',
+    //         data: {
+    //             id: 1,
+    //             title: 'We are learning Axios Put Request',
+    //             body: 'Learning axios is easy',
+    //         },
+    //         })
+    //         .then(res => console.log(res.data))
+    //         .catch(err =>  console.log(err))
+
+
+
+
 
     return(
         
