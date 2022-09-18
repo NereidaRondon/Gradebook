@@ -46,12 +46,14 @@ button{
   background-color: rgba(1, 147, 184, 0.767);
   font-family: 'Questrial', 'Josefin Sans', 'Century Gothic', sans-serif;
   transition: all 0.2s ease-in-out;
+  
 }
 .btn{
   width: 6rem;
   height: 2rem;
   border-radius: 50px;
   background-color: rgb(255, 125, 0);
+  filter: drop-shadow(3px 3px 3px rgb(1, 41, 53));
 }
 btn:hover{
   background-color: rgb(255, 255, 255);
@@ -61,6 +63,7 @@ btn:hover{
 .btn--form{
   background-color: rgb(255, 125, 0);
   margin: 0;
+  filter: drop-shadow(3px 3px 3px rgb(1, 41, 53));
 }
 .btn--form:hover{
   background-color: rgb(1, 147, 184);
@@ -93,7 +96,7 @@ btn:hover{
   border: none;
 }
 .btn--actions:hover{
-  filter: drop-shadow(0px 0px 2px rgb(255, 125, 0));
+  filter: drop-shadow(0px 0px 4px rgb(1, 51, 66));
 }
 .main--btn{
   margin: 0;
@@ -104,17 +107,65 @@ btn:hover{
   border: none;
 }
 .main--btn:hover{
-  /* background-color: rgb(255, 255, 255); */
-  /* border:1px solid rgb(1, 147, 184); */
-  /* box-shadow: 0 5px 15px rgba(1, 147, 184); */
-  filter: drop-shadow(0px 0px 2px rgb(151, 234, 255));
-  
+   filter: drop-shadow(0px 0px 2px rgb(151, 234, 255)); 
+}
+div.scroll{
+  position: absolute;
+}
+.scroll{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  margin: auto;
+  bottom:6%;
+  left: 2%;
+  border-radius: 40px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  background-color:rgba(255, 125, 0, .3);
+  border: 1px solid rgba(255, 125, 0, .5);
+  z-index: 10;
+}
+.scroll:hover{
+  background-color:rgba(255, 125, 0, .7);
+}
+.scroll--img{
+  filter: invert(78%) sepia(41%) saturate(6075%) hue-rotate(341deg) brightness(100%) contrast(97%);
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  padding: 1px;
+}
+.scroll--img:hover{
+  filter: invert(15%) sepia(41%) saturate(1932%) hue-rotate(159deg) brightness(94%) contrast(102%);
+}  
+footer{
+  text-align: center;
+  margin: 0;
+  padding: 10px 5px;
+  color: rgb(255, 125, 0);
+  background-color:rgb(1, 51, 66);
+  height: 80px;
+
+}
+footer > h3, p{
+  margin: 0;
+  padding: 0;
+  vertical-align:middle;
+}
+footer > h3{
+  font-family: 'Mali', 'Josefin Sans', 'Century Gothic', sans-serif;
 }
 /* ----------------------------- */
 table{
+  position:relative;
+  z-index:1;
   width: 100%;
   text-align: center;
   font-size: 16px;
+  font-family: 'Questrial', 'Josefin Sans', 'Century Gothic', sans-serif;
 }
 th{
   font-size: 14px;
@@ -136,15 +187,22 @@ tr:hover {
   border-radius: 50px;
 }
 textarea{
-  width: 30px;
-  height: 25px;
+  height: 20px;
   font-size: 14px;
+  margin:0;
+  border: none;
+  font-family: 'Questrial', 'Josefin Sans', 'Century Gothic', sans-serif;
 }
 .text--long{
-  width: 150px;
+  width: 90px;
   
 }
-
+.text--med{
+  width: 70px;
+}
+.text--short{
+  width: 30px;
+}
 /* ----------------------------- */
 .input--container{
   display: grid;
@@ -188,12 +246,17 @@ textarea{
 input{
   line-height: 25px;
   width:97%;
+  border-radius: 5px;
+  padding:2px;
+  border: 1px solid rgb(91, 97, 99);
+  font-family: 'Questrial', 'Josefin Sans', 'Century Gothic', sans-serif;
 }
 .modal--title{
   margin: 5px 0 5px 0;
 }  
 .my--modal{
   position: absolute;
+  z-index: 10;
   display:flex;
   justify-content: center;
   align-items: center;
@@ -204,11 +267,28 @@ input{
   padding:0 2rem;
   background-color: rgb(170, 173, 173);
   border: 2px solid grey;
-  border-radius: 15px;
-  z-index: 10;
+  border-radius: 10px;
+  filter: drop-shadow(4px 4px 4px rgb(1, 41, 53));
 }
 .modal--div{
   padding:1rem;
+}
+.modal--delete{
+  position: absolute;
+  z-index: 10;
+  left:45%; 
+  width: 200px;
+  height: 125px;
+  margin: 0;
+  padding:0 .5rem;
+  background-color: rgb(253, 167, 87);
+  border: 1px solid grey;
+  border-radius: 10px;
+  filter: drop-shadow(4px 4px 4px rgb(1, 41, 53));
+}
+.modal--delete--cont{
+  padding:0;
+  display:flex;
 }
 /* ----------ICONS---------- */
 .icon {
@@ -221,6 +301,9 @@ input{
   width:18px;
   height: auto;
   filter: invert(12%) sepia(18%) saturate(6235%) hue-rotate(167deg) brightness(101%) contrast(99%);
+}
+.icon--actions:hover{
+  filter: invert(48%) sepia(95%) saturate(1702%) hue-rotate(360deg) brightness(102%) contrast(104%);
 }
 .icon--title {
   width:40px;
@@ -262,6 +345,13 @@ input{
     justify-content: flex-end;
     align-items: flex-end;
     grid-column: 3/4;
+    grid-row: 6;  
+  }
+  .box6{
+    display:flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    grid-column: 2/3;
     grid-row: 6;  
   }
   .box7{
@@ -353,4 +443,7 @@ input{
     padding:0;
     align-content: center;
   }
-}
+  .modal--delete{
+    left:5%;
+  }
+}  

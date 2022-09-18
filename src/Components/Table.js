@@ -4,16 +4,17 @@ import ReadProfiles from './ReadProfiles.js';
 import {url} from './ReadProfiles';
 import gear from '../images/gear-solid.svg';
 import arrow from '../images/arrow.svg';
-
+export let counter= false;
 
 export default function Table(){
     const [profile, setProfile]= useState('');
     const [modal, setModal]=useState(false);    
     const [refresh, setRefresh]=useState(false)
-
+    
     useEffect(() => {
         console.log('Page has rendered!');
         console.log(refresh);
+        
         axios.get(url).then((response) => {
             setProfile(response.data); 
         });
@@ -21,12 +22,6 @@ export default function Table(){
     },[refresh]);
 
     if (!profile) return null;
-
-    // function RenderData(){
-    //     axios.get(url).then((response) => {
-    //         setProfile(response.data); 
-    //     });
-    // }
     
     function ChangeModalState(){
         setModal(current => !current);
@@ -35,7 +30,7 @@ export default function Table(){
     }
     function Refresh(){
         console.log(`refreshed`);
-       setRefresh(current=> !current);
+        setRefresh(current=> !current);
     };
     
     function Create() {
@@ -57,12 +52,12 @@ export default function Table(){
             axios.post(url, student)
             .then((response) => {
                 console.log('New Student Profile added! Loading removed');
-                setIsLoading(false); 
                 console.log(response); 
+                setIsLoading(false); 
                 setProfile ([...profile, response.data]);   
-                }, (error) => {
-                    console.log(error);
-                }
+            }, (error) => {
+                console.log(error);
+            }
             );    
             
             clear.current.value = '';
@@ -85,7 +80,7 @@ export default function Table(){
                 <div className='input--container'>
 
                     <div className='input box1'>
-                        <input id='id' ref={clear} placeholder='Student ID number' type='number' onChange={(e)=>setStudentID(e.target.value)}/>
+                        <input id='id' ref={clear} placeholder='Student ID number' type='text' maxLength={8} onChange={(e)=>setStudentID(e.target.value)} />
                     </div>
                     <div className='input box2'>
                         <input ref={clearFirst} placeholder='First Name' type='text' onChange={(e)=>setFirstname(e.target.value)}/>
@@ -95,7 +90,7 @@ export default function Table(){
                         <input ref={clearLast} placeholder='Last Name' type='text' onChange={(e)=>setLastname(e.target.value)}/>
                     </div>
                     <div className='input box4'>
-                        <input ref={clearGrade} placeholder='Grade out of 100' type='number' onChange={(e)=>setGrade(e.target.value)}/>
+                        <input ref={clearGrade} placeholder='Grade out of 100' type='text' maxLength={3} onChange={(e)=>setGrade(e.target.value)}/>
                     </div>
                     
                     <div className='input box5'>
@@ -104,7 +99,7 @@ export default function Table(){
                     {/* <div className='input box6'>
                         <button className="btn--form" onClick={ EditStudent }>Edit</button>
                     </div> */}
-                    <div className='input box7'>
+                    <div className='input box6'>
                         <button className="btn--form" onClick={ CloseModal }>Close</button>
                     </div> 
                     <div className='input box8'>
@@ -115,14 +110,25 @@ export default function Table(){
             </>
         );
     }
-
+    function Settings(){
+        return(
+            <div className='settings--bar'>
+                <div className='nav--div'>
+                   <button className='main--btn' type='button' onClick={Refresh}><img className='icon' src={arrow} alt='refresh students' title='Refresh Student List'/></button>
+                </div> 
+                <div className='nav--div'>
+                   <button className='main--btn' type='button' onClick={ChangeModalState}> <img className='icon' src={gear} alt='manage settings' title='Manage Student'/></button>
+                </div>         
+            </div>
+        );
+    }
     function ProfileTable(){  
         const students = profile.map(data => {
     
             return(
-                <ReadProfiles            
+                <ReadProfiles 
                     key={data.id}
-                    student={data}           
+                    student={data}                     
                 />
             )
         })    
@@ -137,7 +143,7 @@ export default function Table(){
                             <th className='left--col'>Last</th>
                             <th className='left--col'>First</th>
                             <th className='left--col'>ID#</th>
-                            <th>Percent</th>
+                            <th>%</th>
                             <th>Grade</th>
                             <th></th>
                             <th></th>
@@ -156,18 +162,9 @@ export default function Table(){
         
         <>
             {modal && (<div className="my--modal"> <Create /> </div>)}
-            <div className='settings--bar'>
-                <div className='nav--div'>
-                   <button className='main--btn' type='button' onClick={Refresh}><img className='icon' src={arrow} alt='refresh students'/></button>
-                </div> 
-                <div className='nav--div'>
-                   <button className='main--btn' type='button' onClick={ChangeModalState}> <img className='icon' src={gear} alt='manage settings'/></button>
-                </div>         
-            </div>    
-            <div>
-                <ProfileTable />
-                
-            </div>
+            <Settings />
+            <ProfileTable />
+            <Settings />
         </>
     );
 
