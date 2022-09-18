@@ -3,9 +3,11 @@
 
 body{
  font-family: 'Questrial', 'Josefin Sans', 'Century Gothic', sans-serif;
+ width:100%;
 }
 .title--div{
   display: flex;
+  width: 100%;
   margin:0;
   padding: 5px;
   justify-content: flex-start;
@@ -23,11 +25,12 @@ body{
   font-size: 36px;
 }
 .nav--div{
-  padding:  5px;
+  padding:  0;
   justify-content: flex-end;
 }
 .settings--bar{
   display:flex;
+  width:100vw;
   justify-content: flex-end;
   align-items: center;
   background-color:rgb(1, 51, 66) ;
@@ -151,6 +154,7 @@ div.scroll{
 }  
 footer{
   text-align: center;
+  width:100vw;
   margin: 0;
   padding: 10px 5px;
   color: rgb(255, 125, 0);
@@ -170,7 +174,7 @@ footer > h3{
 table{
   position:relative;
   z-index:1;
-  width: 100%;
+  width: 100vw;
   text-align: center;
   font-size: 16px;
   font-family: 'Questrial', 'Josefin Sans', 'Century Gothic', sans-serif;
@@ -433,6 +437,9 @@ input{
   .icon {
     width:18px;
   }
+  table{
+  font-size: 14px;
+}
 }
 @media only screen and (max-width: 300px){
   .title--div{
