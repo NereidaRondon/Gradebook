@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Gradebook/static/css/main.f60be97c.css",
+    "main.css": "/Gradebook/static/css/main.b30df244.css",
     "main.js": "/Gradebook/static/js/main.af89038c.js",
     "static/media/gear-solid.svg": "/Gradebook/static/media/gear-solid.80d70ca51e3fc4664867d278bd414a03.svg",
     "static/media/edit.svg": "/Gradebook/static/media/edit.4d579e09a4f4fc9b546b9913a5bd8488.svg",
@@ -10,11 +10,11 @@
     "static/media/arrow.svg": "/Gradebook/static/media/arrow.92502cbcb09adda38307df6cc8f46d87.svg",
     "static/media/trash.svg": "/Gradebook/static/media/trash.26cfd3d2054b6e033432eeaef8b63944.svg",
     "static/media/chevron.svg": "/Gradebook/static/media/chevron.073c6f1fb318de56c788f49a1222a363.svg",
-    "main.f60be97c.css.map": "/Gradebook/static/css/main.f60be97c.css.map",
+    "main.b30df244.css.map": "/Gradebook/static/css/main.b30df244.css.map",
     "main.af89038c.js.map": "/Gradebook/static/js/main.af89038c.js.map"
   },
   "entrypoints": [
-    "static/css/main.f60be97c.css",
+    "static/css/main.b30df244.css",
     "static/js/main.af89038c.js"
   ]
 }
