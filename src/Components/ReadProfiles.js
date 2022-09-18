@@ -1,10 +1,19 @@
 import axios from 'axios';
-import {useState, useEffect} from 'react';
+import {useState, useRef} from 'react';
+import trash from '../images/trash.svg';
+import edit from '../images/edit.svg';
+import save from '../images/save.svg';
+
 export const url='https://631c73714fa7d3264cae6ac0.mockapi.io/database/students';
 
 export default function ReadProfiles(props){
-    let percent = props.data.grade;
     var letter;
+    const percent = props.student.grade;
+    const [newData, setNewData] = useState(false);
+    const firstInput = useRef(null);
+    const lastInput = useRef(null);
+    const stuIdInput = useRef(null);
+    const gradeInput = useRef(null);
 
     const Grade=(percent)=>{
         if ( percent===""){
@@ -17,17 +26,13 @@ export default function ReadProfiles(props){
             letter = 'C'; 
         } else if (percent < 90){
             letter = 'B';
-        } else if (percent > 89){
+        } else {
             letter = 'A';
-        } else{
-            letter = 'NG';
         };
         return letter;
     }
 
-    function deletePost(id) {
-        console.log('delete item');
-        
+    function deletePost(id) {        
         axios
         .delete(`${url}/${id}`)
         .then(() => {
@@ -35,55 +40,67 @@ export default function ReadProfiles(props){
         });
     }
 
-    function EditPost(id){
-        console.log(`Profile updated!`);
+    function EditBtnClick(id){
+        setNewData(true);
     }
-    
-    // const element = document.querySelector('#');
-        
-    // axios.put(`${url}/${id}`)
-    // .then(response => element.innerHTML = response.data.updatedAt )
-    // .catch(error => {
-    //     element.parentElement.innerHTML = `Error: ${error.message}`;
-    //     console.error('There was an error!', error);
-    // });
-
-
-    //         axios.put('https://jsonplaceholder.typicode.com/posts/1', {
-    //         method: 'PUT',
-    //         data: {
-    //             id: 1,
-    //             title: 'We are learning Axios Put Request',
-    //             body: 'Learning axios is easy',
-    //         },
-    //         })
-    //         .then(res => console.log(res.data))
-    //         .catch(err =>  console.log(err))
-
-
-
-
+     function EditPost(id){
+        const lastname = lastInput.current.value;
+        const firstname = firstInput.current.value;
+        const studentID = stuIdInput.current.value;
+        const grade = gradeInput.current.value;
+        const data = {id, lastname, firstname, studentID, grade};
+        axios.put(`${url}/${id}`, data)
+        .then(response => console.log(response.student))
+        .catch(error =>  console.log(error))
+  
+        setNewData(current => !current);       
+        console.log(`Profile updated!`);
+    }   
 
     return(
         
         <tr>
-            <td className="avatar"><img className='profile--pic' src={props.data.image} alt='student profile pictuire' width='50px' height='50px'></img></td>
+            <td className="avatar"><img className='profile--pic' src={props.student.image} alt='student profile avatar' width='50px' height='50px'></img></td>
 
-            <td>{props.data.id}</td>
-            <td>{props.data.firstname}<span>&nbsp;</span>{props.data.lastname}</td>
-            <td>{props.data.studentID}</td>
-            <td>{props.data.grade}</td>
-            <td>{Grade(percent)}</td>
+            <td>{props.student.id}</td>
+            
+            <td className='left--col'>{!newData && (props.student.lastname)}
+                {newData && (
+                <textarea ref={lastInput} defaultValue={props.student.lastname}/>)} 
+            </td>
+
+            <td className='left--col'>{!newData && (props.student.firstname)}
+                {newData && (
+                <textarea ref={firstInput} defaultValue={props.student.firstname}/>)} 
+            </td>
+
+            <td className='left--col'>{!newData && (props.student.studentID)}
+                {newData && (
+                <textarea ref={stuIdInput} defaultValue={props.student.studentID}/>)} 
+            </td>
+
+
+            <td>{!newData && (props.student.grade)}
+                {newData && (
+                <textarea ref={gradeInput} defaultValue={props.student.grade}/>)} 
+            </td>
+            
+            <td>{Grade(percent)}                 
+                
+            </td>
             
             <td>
                 <div>
-                    <button className="btn--action btn btn-color1" onClick={EditPost}>Edit</button>
+                    {!newData && (<button className="btn--actions" onClick={()=> EditBtnClick(props.student.id)}><img className='icon--actions' src={edit} alt='Edit Student Grade'/></button>)}
+
+                    {newData && (<button className='btn--actions' onClick={()=> EditPost(props.student.id)}><img className='icon--actions' src={save} alt='Save Student Grade'/></button>)}
+
                 </div>
             </td>
             
             <td>
                 <div>
-                    <button  className="btn--action btn btn-color2" onClick={()=>deletePost(props.data.id)}>Delete</button>
+                    <button  className="btn--actions" onClick={()=> deletePost(props.student.id) }><img className='icon--actions' src={trash} alt='Delete Student'/></button>
                 </div>
             </td>  
         </tr>
