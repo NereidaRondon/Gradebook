@@ -63,12 +63,12 @@ btn:hover{
 .btn--form{
   background-color: rgb(255, 125, 0);
   margin: 0;
-  filter: drop-shadow(3px 3px 3px rgb(1, 41, 53));
+  filter: drop-shadow(3px 3px 3px rgb(114, 55, 0));
 }
 .btn--form:hover{
-  background-color: rgb(1, 147, 184);
-  border:1px solid rgb(1, 51, 66);
-  box-shadow: 0px 3px 8px rgb(1, 51, 66);
+  background-color: rgb(255, 172, 95);
+  border:1px solid rgb(155, 75, 0);
+  box-shadow: 0px 3px 6px rgb(114, 55, 0);
 }
 .btn-color1{
   background-color: rgb(1, 147, 184);
@@ -109,17 +109,25 @@ btn:hover{
 .main--btn:hover{
    filter: drop-shadow(0px 0px 2px rgb(151, 234, 255)); 
 }
+.btn--del--modal{
+  background-color: rgb(1, 147, 184);
+  margin:0 5px;
+  filter: drop-shadow(3px 3px 3px rgb(1, 41, 53));
+}
+.btn--del--modal:hover{
+  background-color: rgb(151, 234, 255);
+  border:1px solid rgb(1, 51, 66);
+  box-shadow: 0px 3px 8px rgb(1, 51, 66);
+}
 div.scroll{
   position: absolute;
 }
 .scroll{
   position: fixed;
-  display: flex;
-  justify-content: center;
   padding: 5px;
   margin: auto;
-  bottom:6%;
-  left: 2%;
+  top:86%;
+  left: 3%;
   border-radius: 40px;
   cursor: pointer;
   width: 40px;
@@ -255,18 +263,20 @@ input{
   margin: 5px 0 5px 0;
 }  
 .my--modal{
-  position: absolute;
+  position: fixed;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%); 
   z-index: 10;
   display:flex;
   justify-content: center;
   align-items: center;
-  left:10%; 
   width: 400px;
   height: 300px;
   margin: auto;
   padding:0 2rem;
   background-color: rgb(170, 173, 173);
-  border: 2px solid grey;
+  border: 1px solid grey;
   border-radius: 10px;
   filter: drop-shadow(4px 4px 4px rgb(1, 41, 53));
 }
@@ -274,14 +284,17 @@ input{
   padding:1rem;
 }
 .modal--delete{
-  position: absolute;
+  position: fixed;
   z-index: 10;
-  left:45%; 
+  top:50%;
+  left:50%; 
+  transform: translate(-50%, -50%); 
   width: 200px;
-  height: 125px;
-  margin: 0;
-  padding:0 .5rem;
-  background-color: rgb(253, 167, 87);
+  height: 180px;
+  margin: 0rem;
+  padding:0 1rem;
+  line-height: 18px;
+  background-color: rgb(255, 216, 185);
   border: 1px solid grey;
   border-radius: 10px;
   filter: drop-shadow(4px 4px 4px rgb(1, 41, 53));
@@ -289,6 +302,10 @@ input{
 .modal--delete--cont{
   padding:0;
   display:flex;
+}
+.student--name{
+  color: rgb(3, 93, 121);
+  font-weight: bolder;
 }
 /* ----------ICONS---------- */
 .icon {
@@ -387,9 +404,7 @@ input{
   .modal--div{
     padding:.5rem;
   }
-.my--modal{
-    top: 12%;
-    left: 0%;
+  .my--modal{
     width: 400px;
     height:350px;
     margin: auto;

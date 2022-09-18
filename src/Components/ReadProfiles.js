@@ -38,9 +38,11 @@ export default function ReadProfiles(props){
         return(
             <div className='modal--delete--cont'>
                 <div className='modal--delete'>
-                    <h4>Are you sure you want to delete this student profile?</h4>
-                    <button onClick={()=> setDeleteModal(false)}>Close</button>
-                    <button onClick={()=> deletePost(props.student.id) }>Yes</button>
+                    <h4>Are you sure you want to delete <div className='student--name'>{props.student.firstname} {props.student.lastname}'s?</div> profile'?</h4>
+
+                    <button className='btn--del--modal' onClick={()=> setDeleteModal(false)}>Cancel</button>
+
+                    <button className='btn--del--modal' onClick={()=> deletePost(props.student.id) }>Yes</button>
                 </div>
             </div>
         );

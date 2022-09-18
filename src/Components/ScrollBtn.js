@@ -7,7 +7,7 @@ export default function ScrollBtn(){
 
     const toggleScroll=()=>{
         const length= document.documentElement.scrollTop;
-        if(length >300){
+        if(length >260){
             setScroll(true)
         } else {
             setScroll(false);
